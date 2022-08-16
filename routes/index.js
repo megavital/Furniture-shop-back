@@ -16,7 +16,7 @@ router.post('/registration', async (request, response) => {
         const isDBPathExists = await db.exists('/users')
         if (isDBPathExists) {
             const matchedUser = await db.find('/users', (entry) => {
-                return entry.email === request.body.email
+                return entry.email === request.body.email || entry.name === request.body.name
             })
             if (matchedUser) {
                 response.status(405)
