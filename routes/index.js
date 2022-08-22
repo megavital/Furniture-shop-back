@@ -5,39 +5,28 @@ import { Config } from 'node-json-db/dist/lib/JsonDBConfig.js'
 import JWT from 'jsonwebtoken'
 import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
-
+//const axios = require('axios').default
 const db = new JsonDB(new Config("ReactProjectDB", true, true, '/'));
 const router = Router()
 
-const GoogleSignIn = async ( body)  => {
-    try {
-        const isDBPathExists = await db.exists('/users')
-        if (isDBPathExists) {
-            const matchedUser = await db.find('/users', (entry) => {
-                return entry.google_id === body.google_id
-            })
-            if(matchedUser) {
-                return matchedUser
-            }
+function verifyToken(req, res, next) {
+    const bearerHeader = req.headers['authorization'];
+    // console.log("header", bearerHeader);
+    if (bearerHeader) {
+        const bearer = bearerHeader.split(' ');
+        const bearerToken = bearer[1];
+        console.log(bearerToken);
+        try {
+            JWT.verify(bearerToken, 'secretKey1')
+            next();
+
+        } catch (error) {
+            res.sendStatus(403);
         }
-
-        const newUser = { ...body, id: crypto.randomBytes(8).toString('hex') }
-        await db.push(
-            "/users",
-            [newUser],
-            false
-        );
-      const payload = {
-        name : newUser.name,
-        id : newUser.id
-      }
-
-        return payload
     }
-    catch (error) {
-        return error
+    else {
+        res.sendStatus(403);
     }
-
 }
 
 router.post('/registration', async (request, response) => {
@@ -50,7 +39,7 @@ router.post('/registration', async (request, response) => {
             })
             if (matchedUser) {
                 response.status(405)
-                return response.json({ success: false , error : { message : 'User with such email alreadt exists!'}})
+                return response.json({ success: false, error: { message: 'User with such email already exists!' } })
             }
         }
         const newUser = { ...request.body, id: crypto.randomBytes(8).toString('hex') }
@@ -74,35 +63,34 @@ router.post('/registration', async (request, response) => {
 })
 
 router.post('/login', async (request, response) => {
-    if(!request.body.login || !request.body.password  ) {
-        return response.status(403).json({ success: false , error : {message :  'Credentials are not provided'}})
+    if (!request.body.login || !request.body.password) {
+        return response.status(403).json({ success: false, error: { message: 'Credentials are not provided' } })
     }
     try {
         response.contentType('application/json')
         const isDBPathExists = await db.exists('/users')
         if (!isDBPathExists) {
-            return response.status(402).json({ success: false , error : {message :  'No user records found!'}})
+            return response.status(402).json({ success: false, error: { message: 'No user records found!' } })
         }
 
         const matchedUser = await db.find('/users', (entry) => {
-            return entry.email === request.body.email
-        })
 
+            return entry.email === request.body.login
+        })
         if (!matchedUser) {
             response.status(403)
-            return response.json({ success: false , error : { message : 'Password or email invalid'}})
+            return response.json({ success: false, error: { message: 'Password or email invalid' } })
         }
-
-        const passwordCheck = await  bcrypt.compare(request.body.password, matchedUser.password)
+        const passwordCheck = await bcrypt.compare(request.body.password, matchedUser.password)
         if (!passwordCheck) {
             response.status(403)
-            return response.json({ success: false , error : { message : 'Password or email invalid'}})
+            return response.json({ success: false, error: { message: 'Password or email invalid' } })
         }
 
-      const payload = {
-        name : matchedUser.name,
-        id : matchedUser.id
-      }
+        const payload = {
+            name: matchedUser.name,
+            id: matchedUser.id
+        }
 
         const token = JWT.sign(payload, 'secretKey1', {
             expiresIn: "2 days"
@@ -115,29 +103,48 @@ router.post('/login', async (request, response) => {
 
 })
 
-router.get('/regist', async (req, res) => {
+router.post('/googlelogin', async (request, response) => {
+    if (!request.body.google_id || !request.body.name || !request.body.email) {
+        return response.status(403).json({ success: false, error: { message: 'Credentials are not provided' } })
+    }
     try {
+        response.contentType('application/json')
+        const isDBPathExists = await db.exists('/users')
+        if (!isDBPathExists) {
+            return response.status(402).json({ success: false, error: { message: 'No user records found!' } })
+        }
 
-        const data = await db.getData("/regist");
-        res.contentType('application/json')
-        res.json(data)
-        return res
+        const newUser = { ...request.body }
+        const matchedUser = await db.find('/users', (entry) => {
+
+            return entry.google_id === newUser.google_id
+        })
+        if (!matchedUser) {
+            await db.push(
+                "/users",
+                [newUser],
+                false
+            );
+        }
+        const token = JWT.sign(newUser, 'secretKey1', {
+            expiresIn: "2 days"
+        })
+        return response.json({ success: true, token })
     }
     catch (error) {
-        console.log(error)
-        return res.status(500).json({ error })
+        return response.status(500).json({ success: false, error })
     }
-})
-router.get('/data', async (req, res) => {
-    try {
 
+})
+
+router.get('/data', verifyToken, async (req, res) => {
+    try {
         const data = await db.getData("/data");
         res.contentType('application/json')
         res.json(data)
         return res
     }
     catch (error) {
-        console.log(error)
         return res.status(500).json({ error })
     }
 })

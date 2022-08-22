@@ -1,16 +1,33 @@
 {
     "users": [
         {
-            "name": "testUser",
-            "email": "TestUser@cc.DAd",
-            "password": "$2a$10$saSDiG59Rw4cXI3swy2IoOjfRUJ/GoSawL6f.9ERKfVq0ZIT5tKW2",
-            "id": "4554858755f81f66"
+            "name": "test1",
+            "email": "test@test.com",
+            "password": "$2a$10$3iP531mrGVxrEHXRnpQ2MeBZ8nHrkTrzbj7T8bPaODxhrFfhqFXmO",
+            "id": "845bd9215d0d89a9"
         },
         {
-            "name": "TestUser",
-            "email": "TestUse@rer.cpm",
-            "password": "$2a$10$GUnrobtMzdjGIrIoTK3CZOeX/XF4.26ycR5RVxEWs3RPFx9uO0oyC",
-            "id": "345a0bd336bfd570"
+            "name": "megaVital",
+            "email": "megaVital@mega.vital",
+            "password": "$2a$10$HiRsTn75jt/P4juXy63LW.dSPXeMzhWiZIEKNXEzXfKHekg0cA55K",
+            "id": "51e63829489d3aa7"
+        },
+        {
+            "google_id": "111127227361174008086",
+            "name": "Alexey Mazurevych",
+            "email": "kalist.fl@gmail.com"
+        },
+        {
+            "name": "test2",
+            "email": "test2@test.com",
+            "password": "$2a$10$KqYKROyjAnoaqd/WKD0xAeSn2PCDkoUAkS8dKdMwSLs1g/wTM5ILC",
+            "id": "0aa7063fcc651316"
+        },
+        {
+            "name": "test3",
+            "email": "test3@test.com",
+            "password": "$2a$10$a7QRz3iDwDg814xbaZaVLu2INzGnPclqkdfdR7mfKqKyeviPlR0Ae",
+            "id": "b2a022ebf4fd98f5"
         }
     ],
     "data": [
