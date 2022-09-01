@@ -20,14 +20,20 @@
         {
             "name": "test2",
             "email": "test2@test.com",
-            "password": "$2a$10$KqYKROyjAnoaqd/WKD0xAeSn2PCDkoUAkS8dKdMwSLs1g/wTM5ILC",
-            "id": "0aa7063fcc651316"
+            "password": "$2a$10$Dd..NLPrSkQY/eO5d82/s.X2FM32.2wiz1kXR6sH22t2u.RZNgLI6",
+            "id": "66be3ebda0e1ced2"
         },
         {
-            "name": "test3",
-            "email": "test3@test.com",
-            "password": "$2a$10$a7QRz3iDwDg814xbaZaVLu2INzGnPclqkdfdR7mfKqKyeviPlR0Ae",
-            "id": "b2a022ebf4fd98f5"
+            "name": "test5",
+            "email": "test5@test.com",
+            "password": "$2a$10$raLUvacW65drL0BRcQvA1uADdmn1.ec0Ma7.0fB/v4WFDImbujYR2",
+            "id": "b1a0ffb54704a025"
+        },
+        {
+            "name": "sasha",
+            "email": "sasha@skrepka.com",
+            "password": "$2a$10$.wS3FNN74kaS6zC4kIMU0.lfGXmy3ktf0FfaQL5Xkx94Syyjv2MMW",
+            "id": "16a8adc2c6d5d890"
         }
     ],
     "data": [

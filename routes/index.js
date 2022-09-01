@@ -11,13 +11,28 @@ const router = Router()
 
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];
-    // console.log("header", bearerHeader);
     if (bearerHeader) {
-        const bearer = bearerHeader.split(' ');
-        const bearerToken = bearer[1];
-        console.log(bearerToken);
         try {
-            JWT.verify(bearerToken, 'secretKey1')
+            const bearer = bearerHeader.split(' ');
+            let bearerToken = bearer[1];
+            JWT.verify(bearerToken, 'secretKey1', (err) => {
+                if (!err) {
+                    return
+                }
+                if (err.name === 'TokenExpiredError') {
+                    const payload = JWT.decode(bearerToken)
+                    delete payload.iat
+                    delete payload.exp
+                    const newToken = JWT.sign({
+                        name: payload.name,
+                        id: payload.google_id,
+                        id: payload.id
+                    }, 'secretKey1', {
+                        expiresIn: "5000"
+                    })
+                    req.headers['authorization'] = `Bearer ${newToken}`
+                }
+            })
             next();
 
         } catch (error) {
@@ -51,12 +66,11 @@ router.post('/registration', async (request, response) => {
         delete newUser.password
         delete newUser.email
         const token = JWT.sign(newUser, 'secretKey1', {
-            expiresIn: "2 days"
+            expiresIn: "2d"
         })
         return response.json({ success: true, token })
     }
     catch (error) {
-        console.log(error)
         return response.status(500).json({ success: false, error })
     }
 
@@ -91,11 +105,12 @@ router.post('/login', async (request, response) => {
             name: matchedUser.name,
             id: matchedUser.id
         }
-
         const token = JWT.sign(payload, 'secretKey1', {
-            expiresIn: "2 days"
+            expiresIn: '5000'
         })
+
         return response.json({ success: true, token })
+
     }
     catch (error) {
         return response.status(500).json({ success: false, error })
@@ -127,21 +142,22 @@ router.post('/googlelogin', async (request, response) => {
             );
         }
         const token = JWT.sign(newUser, 'secretKey1', {
-            expiresIn: "2 days"
+            expiresIn: "5000"
         })
+
         return response.json({ success: true, token })
     }
     catch (error) {
         return response.status(500).json({ success: false, error })
     }
-
 })
 
 router.get('/data', verifyToken, async (req, res) => {
     try {
         const data = await db.getData("/data");
+        const newToken = req.headers['authorization']
         res.contentType('application/json')
-        res.json(data)
+        res.json({ data, newToken })
         return res
     }
     catch (error) {

@@ -1,5 +1,6 @@
 import express from "express"
 import Routes from './routes/index.js'
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -10,6 +11,8 @@ app.set('json spaces', 4)
 // middleware
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
+app.use(cookieParser());
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
