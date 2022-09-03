@@ -5,35 +5,6 @@
             "email": "test@test.com",
             "password": "$2a$10$3iP531mrGVxrEHXRnpQ2MeBZ8nHrkTrzbj7T8bPaODxhrFfhqFXmO",
             "id": "845bd9215d0d89a9"
-        },
-        {
-            "name": "megaVital",
-            "email": "megaVital@mega.vital",
-            "password": "$2a$10$HiRsTn75jt/P4juXy63LW.dSPXeMzhWiZIEKNXEzXfKHekg0cA55K",
-            "id": "51e63829489d3aa7"
-        },
-        {
-            "google_id": "111127227361174008086",
-            "name": "Alexey Mazurevych",
-            "email": "kalist.fl@gmail.com"
-        },
-        {
-            "name": "test2",
-            "email": "test2@test.com",
-            "password": "$2a$10$Dd..NLPrSkQY/eO5d82/s.X2FM32.2wiz1kXR6sH22t2u.RZNgLI6",
-            "id": "66be3ebda0e1ced2"
-        },
-        {
-            "name": "test5",
-            "email": "test5@test.com",
-            "password": "$2a$10$raLUvacW65drL0BRcQvA1uADdmn1.ec0Ma7.0fB/v4WFDImbujYR2",
-            "id": "b1a0ffb54704a025"
-        },
-        {
-            "name": "sasha",
-            "email": "sasha@skrepka.com",
-            "password": "$2a$10$.wS3FNN74kaS6zC4kIMU0.lfGXmy3ktf0FfaQL5Xkx94Syyjv2MMW",
-            "id": "16a8adc2c6d5d890"
         }
     ],
     "data": [

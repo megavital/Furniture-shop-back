@@ -5,7 +5,6 @@ import { Config } from 'node-json-db/dist/lib/JsonDBConfig.js'
 import JWT from 'jsonwebtoken'
 import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
-//const axios = require('axios').default
 const db = new JsonDB(new Config("ReactProjectDB", true, true, '/'));
 const router = Router()
 
@@ -166,22 +165,3 @@ router.get('/data', verifyToken, async (req, res) => {
 })
 
 export default router
-
-// router.get('/users', async (req, res) => {
-//     const data = await db.getData(
-//         'users'
-//     )
-
-
-//     try {
-//         res.contentType('application/json')
-//         res.json(data)
-
-//         return res
-//     }
-//     catch (error) {
-//         console.log(error)
-//         return res.status(500).json({ error })
-//     }
-
-// })
