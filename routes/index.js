@@ -27,7 +27,7 @@ function verifyToken(req, res, next) {
                         id: payload.google_id,
                         id: payload.id
                     }, 'secretKey1', {
-                        expiresIn: "5000"
+                        expiresIn: "2d"
                     })
                     req.headers['authorization'] = `Bearer ${newToken}`
                 }
@@ -105,7 +105,7 @@ router.post('/login', async (request, response) => {
             id: matchedUser.id
         }
         const token = JWT.sign(payload, 'secretKey1', {
-            expiresIn: '5000'
+            expiresIn: '2d'
         })
 
         return response.json({ success: true, token })
@@ -141,7 +141,7 @@ router.post('/googlelogin', async (request, response) => {
             );
         }
         const token = JWT.sign(newUser, 'secretKey1', {
-            expiresIn: "5000"
+            expiresIn: "2d"
         })
 
         return response.json({ success: true, token })
