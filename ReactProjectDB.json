@@ -5,6 +5,12 @@
             "email": "test@test.com",
             "password": "$2a$10$3iP531mrGVxrEHXRnpQ2MeBZ8nHrkTrzbj7T8bPaODxhrFfhqFXmO",
             "id": "845bd9215d0d89a9"
+        },
+        {
+            "name": "test2",
+            "email": "test2@test.com",
+            "password": "$2a$10$vsMDss4IBYdlk05NynkFy.yMItxbRDynOzMWKzLFyT3M3kg/BGGRm",
+            "id": "7c6d621fb4ffeef8"
         }
     ],
     "data": [
