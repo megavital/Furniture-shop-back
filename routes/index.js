@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import { _data } from '../_mock_data.js'
 import { JsonDB } from 'node-json-db';
 import { Config } from 'node-json-db/dist/lib/JsonDBConfig.js'
 import JWT from 'jsonwebtoken'
