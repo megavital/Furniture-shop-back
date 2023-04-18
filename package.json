@@ -1,8 +1,11 @@
 {
     "name": "furniture-server",
     "description": "API mock server",
+    "homepage": "https://MegaVital.github.io/Furniture-Shop-back",
     "version": "0.0.1",
     "scripts": {
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
         "start": "nodemon app.js"
     },
     "main": "app.js",
@@ -17,5 +20,8 @@
         "node-json-db": "^2.0.0",
         "nodemon": "^2.0.19"
     },
-    "type": "module"
+    "type": "module",
+    "devDependencies": {
+        "gh-pages": "^5.0.0"
+    }
 }
